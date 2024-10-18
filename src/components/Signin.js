@@ -1,6 +1,6 @@
 "use client";
 
-import signInAction from "@/app/actions/signInAction";
+import signInAction from "@/app/auth/_actions/signInAction";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -25,8 +25,8 @@ export default function LoginForm() {
     resolver: zodResolver(signInSchema),
   });
 
-  const onSubmit = async (data) => {
-    await signInAction(data);
+  const onSubmit = async ({ email }) => {
+    await signInAction(email);
   };
 
   return (

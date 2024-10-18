@@ -66,7 +66,7 @@ export default function Navbar() {
               <SheetHeader>
                 <SheetTitle>
                   <div className="flex lg:flex-1 lg:items-center">
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <Link href="/" className="-m-1.5 p-1.5">
                       <span className="sr-only">Letters to the future</span>
                       <Image
                         alt="Letter to the future logo"
@@ -75,7 +75,7 @@ export default function Navbar() {
                         width={501}
                         height={372}
                       />
-                    </a>
+                    </Link>
                     <span className="ml-2 text-wrap text-left leading-4">
                       LETTER TO FUTURE
                     </span>
@@ -158,14 +158,14 @@ export default function Navbar() {
         <NavigationMenu className="hidden lg:flex lg:gap-x-12">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link href="/">
+              <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Home
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/pricing">
+              <Link href="/pricing" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Pricing
                 </NavigationMenuLink>
