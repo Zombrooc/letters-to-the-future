@@ -1,6 +1,6 @@
 "use client";
 
-import signInAction from "@/app/auth/_actions/signInAction";
+import signInAction from "../_actions/signInAction";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,21 +12,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 import { signInSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-export default function LoginForm() {
+export default function SigninForm() {
+  const { toast } = useToast();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, submitCount },
   } = useForm({
     resolver: zodResolver(signInSchema),
   });
 
   const onSubmit = async ({ email }) => {
-    await signInAction(email);
+    try {
+      await signInAction(email);
+
+      toast({
+        title: "Magic Link Sent",
+        description: "Check your email for the magic link to login",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred. Please try again.",
+      });
+    }
   };
 
   return (
@@ -44,8 +58,7 @@ export default function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
-              required
+              placeholder="john-doe@email.com"
               {...register("email")}
             />
             {errors.email && (

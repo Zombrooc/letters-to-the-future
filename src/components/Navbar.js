@@ -174,13 +174,12 @@ export default function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Button
-            // href="/auth/signin"
+          <Link
+            href="/auth/signin"
             className="text-sm font-semibold leading-6 text-gray-900"
-            onClick={() => signIn()}
           >
             Log in <span aria-hidden="true">&rarr;</span>
-          </Button>
+          </Link>
         </div>
       </nav>
     </header>

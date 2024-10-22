@@ -1,9 +1,9 @@
-import LoginForm from "@/components/Signin";
+import SigninForm from "./_components/SigninForm";
 
 export default function SigninPage() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <LoginForm />
+      <SigninForm />
     </div>
   );
 }

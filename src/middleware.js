@@ -1,20 +1,21 @@
-import { updateSession } from "@/lib/supabase/middleware";
+import { NextResponse } from "next/server";
+import { getUrl } from "./lib/get-url";
 
-export async function middleware(request) {
-  return await updateSession(request);
+const isAuthRoute = ["/auth", "/auth/signin"];
+
+export function middleware(request) {
+  const token = request.cookies.get("authjs.session-token");
+  const pathname = request.nextUrl.pathname;
+
+  if (pathname.includes(isAuthRoute) && token) {
+    return NextResponse.redirect(new URL(getUrl("/app")));
+  }
+
+  if (pathname.includes("/app") && !token) {
+    return NextResponse.redirect(new URL(getUrl("/auth/signin")));
+  }
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-    "/",
-    "/pricing",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
